@@ -1,6 +1,6 @@
 import { Account, Client, Databases } from 'node-appwrite';
 
-const projectID = process.env.APPWRITE_PROJECT_Id;
+const projectID = process.env.APPWRITE_PROJECT_ID;
 const endpoint = process.env.APPWRITE_ENDPOINT;
 const APPWRITE_API_KEY = process.env.APPWRITE_API_KEY;
 
