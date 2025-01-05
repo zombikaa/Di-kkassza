@@ -1,5 +1,3 @@
-import LoadingStateIcon from "./loader";
-
 const LoadingPage = () => {
   return (
     <div className="flex flex-col items-center">
