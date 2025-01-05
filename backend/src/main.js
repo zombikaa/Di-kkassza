@@ -10,12 +10,13 @@ import Login from './routes/auth/login.js';
 import SignUp from './routes/auth/signup.js';
 import getUser from './routes/account/get.js';
 import cookieParser from 'cookie-parser';
-import { protectedRouteMiddleware } from './middlewares/protectedRoute.js';
+import CreateInvoice from './routes/invoices/create.js';
+import getInvoices from './routes/invoices/get.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
-    origin: 'https://diakkassza.vercel.app',
+    origin: 'http://localhost:5173',
     methods: ['GET', 'POST'],
     credentials: true,
 };
@@ -43,7 +44,10 @@ app.get('/ping', apiKeyMiddleware, (req, res) => {
 app.use('/auth', apiKeyMiddleware, Login)
 app.use('/auth', apiKeyMiddleware, SignUp)
 
-app.use('/user', apiKeyMiddleware, protectedRouteMiddleware, getUser)
+app.use('/user', apiKeyMiddleware, getUser)
+
+app.use('/invoice', apiKeyMiddleware, CreateInvoice)
+app.use('/invoice', apiKeyMiddleware, getInvoices)
 
 app.listen(PORT, () => {
   console.log(`Szerver fut itt: http://localhost:${PORT}`);

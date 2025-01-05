@@ -1,18 +1,27 @@
 import express from 'express'
 import { createAdminClient } from "../../config/appwrite.js";
-import { ID } from 'node-appwrite';
+import { ID, Permission, Role } from 'node-appwrite';
 
 const router = express.Router()
 const databaseID = process.env.APPWRITE_DATABASE_ID;
 const collectionID = process.env.APPWRITE_USERS_COLLECTION_ID;
 
 
-router.post('/signup', async (req, res) => {
-    const { database, account } = await createAdminClient()
-    const { firstName, lastName, balance, email, password } = req.body;
+function arrayBufferToBase64(buffer) {
+    const bufferObj = Buffer.from(buffer);
+    return bufferObj.toString('base64');
+}
 
-    const name = `${lastName} ${firstName}`
+router.post('/signup', async (req, res) => {
+    const { database, account, avatar } = await createAdminClient();
+    const { firstname, lastname, balance, email, password, scholarship, salary } = req.body;
+
+    const name = `${lastname} ${firstname}`;
+
     try {
+        const avatarBuffer = await avatar.getInitials(name);
+        const avatarURL = `data:image/png;base64,${arrayBufferToBase64(avatarBuffer)}`;
+
         const newAccount = await account.create(
             ID.unique(),
             email,
@@ -25,18 +34,24 @@ router.post('/signup', async (req, res) => {
             collectionID,
             newAccount.$id,
             {
-                firstName: firstName,
-                lastName: lastName,
+                firstName: firstname,
+                lastName: lastname,
                 name: name,
-                email: email,
-                balance: balance
-            }
-        )
+                balance: balance,
+                scholarship: scholarship,
+                salary: salary,
+                pfp: avatarURL
+            },
+            [
+                Permission.read(Role.user(newAccount.$id)),
+            ]
+        );
+
         return res.status(200).json({ success: true, message: 'Sikeres fióklétrehozás!' });
     } catch (error) {
-        res.status(500).json({ success: false, message: error})
+        res.status(500).json({ success: false, message: error.message });
     }
-    
-})  
+});
+
 
 export default router;

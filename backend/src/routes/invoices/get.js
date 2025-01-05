@@ -5,26 +5,22 @@ import { Query } from 'node-appwrite';
 const router = express.Router()
 
 const databaseID = process.env.APPWRITE_DATABASE_ID;
-const collectionID = process.env.APPWRITE_USERS_COLLECTION_ID;
+const collectionID = process.env.APPWRITE_INVOICES_COLLECTION_ID;
 
 router.get('/get', async (req, res) => {
     const { account, database } = await createSessionClient(req);
     
     try {
         const user = await account.get();
-        let userData = [];
         
-        if (req.query.userData === 'true') {
-            const collectionResponse = await database.listDocuments(databaseID, collectionID, 
-            [
-              Query.equal('$id', user.$id)
-            ]);
-            userData = collectionResponse.documents;
-        };
+        const collectionResponse = await database.listDocuments(databaseID, collectionID, 
+        [
+          Query.equal('user', user.$id),
+          Query.orderDesc('$createdAt')
+        ]);
 
         res.status(200).json({
-            user,
-            collectionData: userData.length ? userData : undefined,
+            invoices: collectionResponse
         });
     } catch (error) {
         return res.status(500).json({message: error.message});

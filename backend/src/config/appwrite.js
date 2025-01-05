@@ -1,4 +1,4 @@
-import { Account, Client, Databases } from 'node-appwrite';
+import { Account, Avatars, Client, Databases } from 'node-appwrite';
 
 const projectID = process.env.APPWRITE_PROJECT_ID;
 const endpoint = process.env.APPWRITE_ENDPOINT;
@@ -17,6 +17,9 @@ const createAdminClient = async () => {
     },
     get database() {
       return new Databases(client)
+    },
+    get avatar() {
+      return new Avatars(client)
     }
   }
 }
@@ -39,6 +42,9 @@ const createSessionClient = async (req) => {
     },
     get database() {
       return new Databases(client)
+    },
+    get avatar() {
+      return new Avatars(client)
     }
   }
 }
