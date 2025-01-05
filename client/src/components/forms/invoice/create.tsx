@@ -36,7 +36,7 @@ const InvoiceForm = () => {
   async function onSubmit(values: z.infer<typeof invoiceSchema>) {
     setLoading(true);
     try {
-      const response = await fetch("https://diakkasszaapi.vercel.app/invoice/create", {
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/invoice/create`, {
         method: "POST",
         credentials: "include",
         headers: {

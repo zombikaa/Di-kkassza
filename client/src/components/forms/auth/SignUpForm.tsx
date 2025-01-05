@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AtSign, KeyRound } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, Meta } from "react-router-dom";
 import { IconInput } from "@/components/shared/IconInput";
 import { useState } from "react";
 import LoadingStateIcon from "@/components/shared/Loader/Loader";
@@ -36,11 +36,11 @@ const SignUpForm = () => {
   async function onSubmit(values: z.infer<typeof signupSchema>) {
     setLoading(true);
     try {
-      const response = await fetch("https://diakkasszaapi.vercel.app/auth/signup", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization: "Bearer a12b3c",
+          'authorization': "Bearer a12b3c",
         },
         body: JSON.stringify(values),
       });

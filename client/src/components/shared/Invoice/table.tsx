@@ -29,7 +29,7 @@ const TableInvoice = () => {
   const [invoices, setInvoices] = useState<Invoice[]>([]);
 
   useEffect(() => {
-    fetch("https://diakkasszaapi.vercel.app/invoice/get", {
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/invoice/get`, {
       method: "GET",
       credentials: "include",
       headers: {

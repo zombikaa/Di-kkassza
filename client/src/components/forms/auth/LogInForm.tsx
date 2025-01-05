@@ -32,7 +32,7 @@ const LogInForm = () => {
       async function onSubmit(values: z.infer<typeof loginSchema>) {
         setLoading(true);
         try {
-            const response = await fetch('https://diakkasszaapi.vercel.app/auth/login', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/login`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {

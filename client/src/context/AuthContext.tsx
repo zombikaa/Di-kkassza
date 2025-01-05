@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const checkAuthUser = async (): Promise<boolean> => {
     setIsLoading(true);
     try {
-      const response = await fetch('https://diakkasszaapi.vercel.app/user/get?userData=true', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/get?userData=true`, {
         method: 'GET',
         credentials: 'include',
         headers: {
