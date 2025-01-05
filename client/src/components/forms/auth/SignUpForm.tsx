@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AtSign, KeyRound } from "lucide-react";
-import { Link, Meta } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IconInput } from "@/components/shared/IconInput";
 import { useState } from "react";
 import LoadingStateIcon from "@/components/shared/Loader/Loader";
