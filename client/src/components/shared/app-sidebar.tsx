@@ -1,4 +1,4 @@
-import { Calendar, ChartNoAxesColumn, HandCoins, Search, Settings } from "lucide-react"
+import { ChartNoAxesColumn, HandCoins } from "lucide-react"
 
 import {
   Sidebar,
