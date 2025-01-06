@@ -36,6 +36,10 @@ const createSessionClient = async (req) => {
       client.setSession(session)
     }
 
+    if (!session) {
+      res.status(401).send('No session found');
+    }
+
   return {
     get account() {
       return new Account(client)
