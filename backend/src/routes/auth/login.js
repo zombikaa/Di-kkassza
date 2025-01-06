@@ -12,7 +12,7 @@ router.post('/login', async (req, res) => {
         res.cookie('session', session.secret, {
             httpOnly: true,
             secure: true, 
-            sameSite: 'strict',
+            sameSite: 'none',
             maxAge: new Date(session.expire) - Date.now(),
             path: '/'
         });
