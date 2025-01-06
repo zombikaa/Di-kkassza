@@ -11,8 +11,8 @@ router.post('/login', async (req, res) => {
         const session = await account.createEmailPasswordSession(email, password);
         res.cookie('session', session.secret, {
             httpOnly: true,
-            secure: false, 
-            sameSite: 'Lax',
+            secure: true, 
+            sameSite: 'strict',
             maxAge: new Date(session.expire) - Date.now(),
             path: '/'
         });
