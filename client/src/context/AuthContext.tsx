@@ -1,3 +1,4 @@
+import { avatars } from '@/appwrite/config';
 import LoadingPage from '@/components/shared/Loader/LoadingPage';
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -61,7 +62,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         salary: collectionData.salary ?? 0,
         scholarship: collectionData.scholarship ?? 0,
         currency: collectionData.currency,
-        pfp: collectionData.pfp,
+        pfp: avatars.getInitials(`${collectionData.lastName} ${collectionData.firstName}`),
         balanceWcurrency: `${collectionData.balance} ${collectionData.currency}`,
         email: user.email,
       });

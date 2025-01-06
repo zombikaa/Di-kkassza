@@ -12,21 +12,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AtSign, KeyRound } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconInput } from "@/components/shared/IconInput";
 import { useState } from "react";
 import LoadingStateIcon from "@/components/shared/Loader/Loader";
 
 const SignUpForm = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const form = useForm<z.infer<typeof signupSchema>>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
       firstname: "",
       lastname: "",
-      salary: 0,
-      scholarship: 0,
-      balance: 0,
+      salary: undefined,
+      scholarship: undefined,
+      balance: undefined,
       email: "",
       password: "",
       passwordAgain: "",
@@ -36,6 +38,7 @@ const SignUpForm = () => {
   async function onSubmit(values: z.infer<typeof signupSchema>) {
     setLoading(true);
     try {
+      console.log(values)
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/auth/signup`, {
         method: "POST",
         headers: {
@@ -51,7 +54,7 @@ const SignUpForm = () => {
 
       const data = await response.json();
       if (data.success) {
-        console.log("Signup successful");
+          navigate('/login');
       }
     } catch (error) {
       console.error("Signup failed:", error);

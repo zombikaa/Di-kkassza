@@ -7,21 +7,13 @@ const databaseID = process.env.APPWRITE_DATABASE_ID;
 const collectionID = process.env.APPWRITE_USERS_COLLECTION_ID;
 
 
-function arrayBufferToBase64(buffer) {
-    const bufferObj = Buffer.from(buffer);
-    return bufferObj.toString('base64');
-}
-
 router.post('/signup', async (req, res) => {
-    const { database, account, avatar } = await createAdminClient();
+    const { database, account } = await createAdminClient();
     const { firstname, lastname, balance, email, password, scholarship, salary } = req.body;
 
     const name = `${lastname} ${firstname}`;
 
     try {
-        const avatarBuffer = await avatar.getInitials(name);
-        const avatarURL = `data:image/png;base64,${arrayBufferToBase64(avatarBuffer)}`;
-
         const newAccount = await account.create(
             ID.unique(),
             email,
@@ -40,7 +32,6 @@ router.post('/signup', async (req, res) => {
                 balance: balance,
                 scholarship: scholarship,
                 salary: salary,
-                pfp: avatarURL
             },
             [
                 Permission.read(Role.user(newAccount.$id)),

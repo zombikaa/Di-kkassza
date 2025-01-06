@@ -24,22 +24,7 @@ const items = [
     title: "Számlák",
     url: "/invoice",
     icon: HandCoins,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
+  }
 ];
 
 const UserData = () => {
