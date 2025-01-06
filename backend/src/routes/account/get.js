@@ -27,7 +27,7 @@ router.get('/get', async (req, res) => {
             collectionData: userData.length ? userData : undefined,
         });
     } catch (error) {
-        return res.status(500).json({message: error.message});
+        return res.status(500).json({message: error});
     }
 })  
 
