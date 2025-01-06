@@ -36,7 +36,7 @@ const InvoiceForm = () => {
   async function onSubmit(values: z.infer<typeof invoiceSchema>) {
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:3000/invoice/create`, {
+      const response = await fetch(`${import.meta.env.BACKEND_URL}/invoice/create`, {
         method: "POST",
         credentials: "include",
         headers: {
