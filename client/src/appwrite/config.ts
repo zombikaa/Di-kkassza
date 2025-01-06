@@ -1,4 +1,4 @@
-import { Client, Account, Avatars } from "appwrite";
+import { Client, Avatars } from "appwrite";
 
 export const appwriteConfig = {
     endpoint: import.meta.env.VITE_APPWRITE_ENDPOINT,
@@ -11,5 +11,4 @@ client.setProject(appwriteConfig.projectID),
 client.setEndpoint(appwriteConfig.endpoint),
 client.setLocale("hu")
 
-export const account = new Account(client);
 export const avatars = new Avatars(client);
